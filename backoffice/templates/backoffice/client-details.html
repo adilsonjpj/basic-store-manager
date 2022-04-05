@@ -1,0 +1,112 @@
+{% extends "base/base.html" %}
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block title %} 
+        <title>Store - Detalhes do Cliente</title>
+{% endblock %}
+ 
+{% block content %}
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-4 text-gray-800">{{client.name}}</h1>
+    </div>
+    
+    <div class="row px-4">
+        <div class="col-lg-6">
+          <!-- Collapsable Card Example -->
+            <div class="card shadow mb-4">
+                <!-- Card Header - Accordion -->
+                <a href="#address-information" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="address-information">
+                    <h6 class="m-0 font-weight-bold text-primary">Endereço</h6>
+                </a>
+                <!-- Card Content - Collapse -->
+                <div class="collapse show" id="address-information">
+                    <div class="card-body">
+                        <div class="list-group px-1 text-white">
+                            <div class="list-group-item list-group-item-action flex-column align-items-start text-black my-2">
+                                <p>Descrição: {{address_form.description.value}}</p>
+                                <p>Número: {{address_form.number.value}}</p>
+                                <p>Rua: {{address_form.street.value}}</p>
+                                <p>Bairro: {{address_form.district.value}}</p>
+                                <p>Estado: {{address_form.state.value}}</p>
+                                <p>CEP: {{address_form.postal_code.value}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <!-- Collapsable Card Example -->
+            <div class="card shadow mb-4">
+                <!-- Card Header - Accordion -->
+                <a href="#personal-information" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="personal-information">
+                    <h6 class="m-0 font-weight-bold text-primary">Informação Pessoal</h6>
+                </a>
+                <!-- Card Content - Collapse -->
+                <div class="collapse show" id="personal-information">
+                    <div class="card-body">
+                        <div class="list-group-item list-group-item-action flex-column align-items-start my-2">
+                            <p>Nome: {{client.name}}</p>
+                            <p>CPF: {{client.cpf}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-lg-6">
+            <!-- Collapsable Card Example -->
+            <div class="card shadow mb-4">
+                <!-- Card Header - Accordion -->
+                <a href="#client_form" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="client_form">
+                    <h6 class="m-0 font-weight-bold text-primary">Atualizar Informações Pessoais do Cliente</h6>
+                </a>
+                <!-- Card Content - Collapse -->
+                <div class="collapse show" id="client_form">
+                    <div class="card-body">
+                        <div class="flex-column align-items-start my-2">
+                            {{ client_form.as_p }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <!-- Collapsable Card Example -->
+            <div class="card shadow mb-4">
+                <!-- Card Header - Accordion -->
+                <a href="#client_address_form" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="client_address_form">
+                    <h6 class="m-0 font-weight-bold text-primary">Atualizar Endereço do Cliente</h6>
+                </a>
+                <!-- Card Content - Collapse -->
+                <div class="collapse show" id="client_address_form">
+                    <div class="card-body">
+                        <div class="flex-column align-items-start my-2">
+                            <p>Descrição: {{address_form.description}}</p>
+                            <p>Número: {{address_form.number}}</p>
+                            <p>Rua: {{address_form.street}}</p>
+                            <p>Bairro: {{address_form.district}}</p>
+                            <p>Estado: {{address_form.state}}</p>
+                            <p>CEP: {{address_form.postal_code}}</p>
+                            <p>Latitude: {{address_form.latitude}}</p>
+                            <p>Longitude: {{address_form.longitude}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <!-- Content Row -->
+
+{% endblock %}

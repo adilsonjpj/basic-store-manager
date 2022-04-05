@@ -1,0 +1,124 @@
+{% extends "base/base.html" %}
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block title %} 
+        <title>Store - Entregas</title>
+{% endblock %}
+ 
+{% block content %}
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-4 text-gray-800">Entregas</h1>
+    </div>
+    
+    <div class="row px-4">
+        {% for order in delivery %}
+        <div class="col-lg-6">
+          <!-- Collapsable Card Example -->
+            <div class="card shadow mb-4">
+                <!-- Card Header - Accordion -->
+                <a href="#order-{{order.0.id}}" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="order-{{order.0.id}}">
+                    <h6 class="m-0 font-weight-bold text-primary">{{order.0.client.name}}</h6>
+                </a>
+                <!-- Card Content - Collapse -->
+                <div class="collapse show" id="order-{{order.0.id}}">
+                    <div class="card-body">
+                        <div class="list-group px-1 text-white">
+                            <div class="list-group-item list-group-item-action flex-column align-items-start text-black my-2">
+                                <p>Endereço: {{order.0.client.address.number}}, {{order.0.client.address.street}}, {{order.0.client.address.district}}</p>
+                                <p>Contato: {{order.0.client.phone.number}}</p>
+                                <button><a target= "_blank" href="https://google.com/maps/@{{order.0.client.address.latitude}},{{order.0.client.address.longitude}}">Google Maps</a></button>
+                                <button><a href="geo:{{order.0.client.address.latitude}},{{order.0.client.address.longitude}}">Mapa</a></button>
+                            </div>
+                        </div>
+                        <div class="list-group-item list-group-item-action flex-column align-items-start my-2">
+                            <table class="table table-sm">
+                                <tr>
+                                    <th>Produto</th>
+                                    <th>Quantidade</th>
+                                    <th>Valor</th>
+                                </tr>
+                                {% for product in order.1 %}
+                                <tr>
+                                    <td>{{product.product.title}}</td>
+                                    <td>{{product.amount}}</td>
+                                    <td>{{product.value}}</td>
+                                </tr>
+                                {% endfor %}
+                                <tr>
+                                    <td>Total</td>
+                                    <td></td>
+                                    <td>{{order.2}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <form action="order-done" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{order.0.id}}" name="order">
+                            <button class="btn btn-sm btn-primary btn-block mt-3" type="submit">Entregue</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="col-lg-6">
+            <!-- Collapsable Card Example -->
+            <div class="card shadow mb-4">
+                <!-- Card Header - Accordion -->
+                <a href="#personal-information" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="personal-information">
+                    <h6 class="m-0 font-weight-bold text-primary">Produtos</h6>
+                </a>
+                <!-- Card Content - Collapse -->
+                <div class="collapse show" id="personal-information">
+                    <div class="card-body">
+                        <div class="list-group-item list-group-item-action flex-column align-items-start my-2">
+                            <table class="table table-sm">
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Quantidade</th>
+                                </tr>
+                
+                                {% for product in produtos %}
+                                    <tr>
+                                        <td>{{product.product__title}}</td>
+                                        <td>{{product.amount__sum}}</td>
+                                    </tr>
+                                {% endfor %}
+                
+                        
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--
+        <div class="col-lg-6">
+            <!-- Collapsable Card Example
+            <div class="card shadow mb-4">
+                <!-- Card Header - Accordion
+                <a href="#client_form" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="client_form">
+                    <h6 class="m-0 font-weight-bold text-primary">Atualizar Informações do Pedido</h6>
+                </a>
+                <!-- Card Content - Collapse
+                <div class="collapse show" id="client_form">
+                    <div class="card-body">
+                        <div class="flex-column align-items-start my-2">
+                            {{ order_form | crispy }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        -->
+
+
+    </div>
+
+    <!-- Content Row -->
+
+{% endblock %}

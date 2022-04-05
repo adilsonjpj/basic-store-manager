@@ -1,0 +1,48 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block title %} 
+        <title>Store - Entregas</title>
+{% endblock %}
+ 
+{% block content %}
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-4 text-gray-800">Todas as Entregas</h1>
+    </div>
+
+    <div class="col-md-12">
+        <div class="card card-body">
+            <form action="change-order-status" method="POST">
+                {% csrf_token %}
+                <table class="table table-sm">
+                    <tr>
+                        <th></th>
+                        <th>Nome</th>
+                        <th>Data do Pedido</th>
+                        <th>Contato</th>
+                        <th>Bairro</th>
+                        <th>Valor</th>
+                    </tr>
+
+                    {% for order in delivery %}
+                        <tr>
+                            <td>
+                                <input type="checkbox" value="{{order.0.id}}" name="orders" checked>
+                            </td>
+                            <td>{{order.0.client.name}}</td>
+                            <td>{{order.0.date}}</td>
+                            <td><a target="_blank" href="https://api.whatsapp.com/send?phone=+55{{order.0.client.phone.number}}">{{order.0.client.phone.number}}</a></td>
+                            <td></td>
+                            <td>{{order.2}}</td>
+                        </tr>
+                    {% endfor %}
+
+            
+                </table>
+                <input type="submit" value="Gerar Lista">
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends "base/base.html" %}
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block title %} 
+        <title>Store - Novo Pedido</title>
+{% endblock %}
+ 
+{% block content %}
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-4 text-gray-800">Cadastrar novo Pedido</h1>
+    </div>
+    <div class="row px-4">
+        <div class="col-md-12">
+            <div class="card card-body px-4">
+                <form class="form-register" action="new-order" method="POST">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            {{ new_order_form.client|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-4">
+                            {{ new_order_form.date|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-4">
+                            {{ new_order_form.status|as_crispy_field }}
+                        </div>
+                    </div>
+                    
+                    <p class="pt-2">Produtos</p>
+                    <div>
+                        <div id="productList" class="row">
+                            <div class="col-sm-6 form-group">
+                                <select class="form-control" name="product">
+                                    {% for product in products %}
+                                    <option value="{{product.id}}">{{product.title}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <input type="number" class="form-control" placeholder="Quantidade" name="product_amount" required autofocus>
+                            </div>
+                        </div>
+                        
+                        <button type="button" id="add-product" class="btn btn-warning">Adicionar Outro</button>
+                    </div>
+
+                    
+            
+                    <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">Cadastrar</button>
+                    
+                </form>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Row -->
+    <!-- Scripts -->
+    <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
+    <script>
+        var index = 0;
+        $(document.body).on('click', '.btn-remove-phone' ,function(){
+            $(this).closest('.phone-input').remove();
+        });
+        
+        
+        $('#add-product').on('click', function(){
+
+            index += 1;
+            
+            $('#productList').append(
+                '<div class="col-sm-6 form-group">'+
+                    '<select class="form-control" name="product">'+
+                        {% for product in products %}
+                        '<option value="{{product.id}}">{{product.title}}</option>'+
+                        {% endfor %}
+                    '</select>'+
+                '</div>'+
+                '<div class="col-sm-6 form-group">'+
+                        '<input type="number" class="form-control" placeholder="Quantidade" name="product_amount" required autofocus>'+
+                '</div>'
+            );
+            
+                
+            
+                
+                
+        });
+    </script>
+{% endblock %}

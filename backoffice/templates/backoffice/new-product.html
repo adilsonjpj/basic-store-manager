@@ -1,0 +1,59 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block title %} 
+        <title>Store - Novo Produto</title>
+{% endblock %}
+ 
+{% block content %}
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-4 text-gray-800">Cadastrar novo Produto</h1>
+    </div>
+    <div class="row px-4">
+        <div class="col-md-12">
+            <div class="card card-body px-4">
+                
+
+
+                <form class="form-register" action="new-product" method="POST">
+                    {% csrf_token %}
+            
+                    <label for="productTitle">Nome</label>
+                    <input type="text" id="productTitle" class="form-control my-2" placeholder="Nome do Produto" name="title" required autofocus>
+
+                    <div class="row py-2">
+                        
+                        <div class="col-sm-4 form-group">
+                            <label for="buyValue">Valor de Compra:</label> 
+                            <input type="number" step="0.01" class="form-control" name="buy_value" placeholder="12.34" required id="buyValue">
+                        </div>	
+                        <div class="col-sm-4 form-group">
+                            <label for="sellValue">Valor de Venda:</label>
+                            <input type="number" step="0.01" class="form-control" name="sell_value" placeholder="12.34" required id="sellValue">
+                        </div>	
+                        <div class="col-sm-4 form-group">
+                            <label for="stock">Estoque:</label>
+                            <input type="number" class="form-control" name="stock" placeholder="1" required id="stock">
+                        </div>		
+                    </div>
+
+                    <label for="description">Informação Adicional</label>
+                    <textarea class="form-control" name="description" rows="3" placeholder="Descrição do Produto" id="description"></textarea>
+
+                    <input checked hidden type="checkbox" name="is_active" value=True>
+            
+                    <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">Cadastrar</button>
+                    
+                </form>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Row -->
+
+{% endblock %}

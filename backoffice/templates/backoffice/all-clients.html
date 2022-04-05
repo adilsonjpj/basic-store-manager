@@ -1,0 +1,39 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block title %} 
+        <title>Store - Clientes</title>
+{% endblock %}
+ 
+{% block content %}
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-4 text-gray-800">Todos os Clientes</h1>
+    </div>
+
+    <div class="col-md-12">
+        <div class="card card-body">
+            <table class="table table-sm">
+                <tr>
+                    <th>Nome</th>
+                    <th>Contato</th>
+                    <th class="text-center">Opções</th>
+                </tr>
+
+                {% for client in clients %}
+                    <tr>
+                        <td><a href="{% url 'client-details' client.id %}">{{client.name}}</a></td>
+                        <td><a target="_blank" href="https://api.whatsapp.com/send?phone=+55{{client.phone.number}}">{{client.phone.number}}</a></td>
+                        <td class="d-flex justify-content-around">
+                            <button class="btn btn-sm btn-primary">Editar</button>
+                            <button class="btn btn-sm btn-danger" >Excluir</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+        
+            </table>
+        </div>
+    </div>
+{% endblock %}

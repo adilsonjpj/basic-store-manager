@@ -1,0 +1,67 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block title %} 
+        <title>Store - Detalhes do Produto</title>
+{% endblock %}
+ 
+{% block content %}
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-4 text-gray-800">{{product_form.title.value}}</h1>
+    </div>
+    
+    <div class="row px-4">
+        <div class="col-lg-6">
+          <!-- Collapsable Card Example -->
+            <div class="card shadow mb-4">
+                <!-- Card Header - Accordion -->
+                <a href="#product-information" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="product-information">
+                    <h6 class="m-0 font-weight-bold text-primary">Informações do Produto</h6>
+                </a>
+                <!-- Card Content - Collapse -->
+                <div class="collapse show" id="product-information">
+                    <div class="card-body">
+                        <div class="list-group px-1 text-white">
+                            <div class="list-group-item list-group-item-action flex-column align-items-start text-black my-2">
+                            <p>Nome: {{product_form.title.value}}</p>
+                            <p>Valor de Compra: {{product_form.buy_value.value}}</p>
+                            <p>Valor de Venda: {{product_form.sell_value.value}}</p>
+                            <p>Descrição: {{product_form.description.value}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <!-- Collapsable Card Example -->
+            <div class="card shadow mb-4">
+                <!-- Card Header - Accordion -->
+                <a href="#product_form" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="product_form">
+                    <h6 class="m-0 font-weight-bold text-primary">Atualizar Informações do Produto</h6>
+                </a>
+                <!-- Card Content - Collapse -->
+                <div class="collapse show" id="product_form">
+                    <div class="card-body">
+                        <div class="flex-column align-items-start my-2">
+                            <p>Nome: {{product_form.title}}</p>
+                            <p>Valor de Compra: {{product_form.buy_value}}</p>
+                            <p>Valor de Venda: {{product_form.sell_value}}</p>
+                            <p>Descrição: {{product_form.description}}</p>
+                            <p>Ativo?: {{product_form.is_active}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <!-- Content Row -->
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block title %} 
+        <title>Store - Pedidos</title>
+{% endblock %}
+ 
+{% block content %}
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-4 text-gray-800">Todos os Pedidos</h1>
+    </div>
+
+    <div class="col-md-12">
+        <div class="card card-body">
+            <table class="table table-sm">
+                <tr>
+                    <th>Código</th>
+                    <th>Cliente</th>
+                    <th>Data</th>
+                    <th>Status</th>
+                </tr>
+
+                {% for order in orders %}
+                    <tr>
+                        <td><a href="{% url 'order-details' order.id %}">{{order.id}}</a></td>
+                        <td>{{order.client}}</td>
+                        <td>{{order.date}}</td>
+                        <td>{{order.get_status_display}}</td>
+                    </tr>
+                {% endfor %}
+
+        
+            </table>
+        </div>
+    </div>
+{% endblock %}

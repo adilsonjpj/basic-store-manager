@@ -1,0 +1,36 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block title %} 
+        <title>Store - Gastos</title>
+{% endblock %}
+ 
+{% block content %}
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-4 text-gray-800">Todos os Gastos</h1>
+    </div>
+
+    <div class="col-md-12">
+        <div class="card card-body">
+            <table class="table table-sm">
+                <tr>
+                    <th>Data</th>
+                    <th>Tipo</th>
+                    <th>Valor</th>
+                </tr>
+
+                {% for spending in spendings %}
+                    <tr>
+                        <td>{{spending.date}}</td>
+                        <td>{{spending.get_tipo_display}}</td>
+                        <td>{{spending.value}}</td>
+                    </tr>
+                {% endfor %}
+
+        
+            </table>
+        </div>
+    </div>
+{% endblock %}

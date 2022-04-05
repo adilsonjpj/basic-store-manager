@@ -1,0 +1,136 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block title %} 
+        <title>Store - Novo Cliente</title>
+{% endblock %}
+ 
+{% block content %}
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-4 text-gray-800">Inserir novo Cliente</h1>
+    </div>
+    <div class="row px-4">
+        <div class="col-md-12">
+            <div class="card card-body px-4">
+                
+
+
+                <form class="form-register" action="new-client" method="POST">
+                    {% csrf_token %}
+            
+                    <p>Informação Pessoal</p>
+                    
+                    <label for="client_name" class="sr-only">Nome</label>
+                    <input type="text" id="client_name" class="form-control my-2" placeholder="Nome do Cliente" name="name" required autofocus>
+
+                    <label for="unique_identifier" class="sr-only">CPF</label>
+                    <input type="text" id="unique_identifier" class="form-control my-2" placeholder="CPF do cliente" name="cpf" autofocus>
+
+                    <p>Endereço</p>
+                    
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label for="id_number" class="sr-only">Numero:</label>
+                            <input type="text" class="form-control" name="number" maxlength="15" placeholder="Número" required id="id_number">
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label for="id_street" class="sr-only">Rua:</label>
+                            <input type="text" class="form-control" name="street" maxlength="254" placeholder="Rua" required id="id_street">
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label for="id_district" class="sr-only">Bairoo:</label>
+                            <input type="text" class="form-control" name="district" maxlength="254" placeholder="Bairro" required id="id_district">
+                        </div>
+                    </div>
+            
+                    <div class="row">
+                        
+                        <div class="col-sm-4 form-group">
+                            <label for="id_city" class="sr-only">Cidade:</label> 
+                            <input type="text" class="form-control" name="city" maxlength="254" placeholder="Cidade" value="Rio Grande" required id="id_city">
+                        </div>	
+                        <div class="col-sm-4 form-group">
+                            <label for="id_state" class="sr-only">Estado:</label>
+                            <input type="text" class="form-control" name="state" maxlength="254" placeholder="Estado" value="Rio Grande do Sul" required id="id_state">
+                        </div>	
+                        <div class="col-sm-4 form-group">
+                            <label for="id_postal_code" class="sr-only">CEP:</label>
+                            <input type="text" class="form-control" name="postal_code" maxlength="31" placeholder="CEP" required id="id_postal_code">
+                        </div>		
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label for="id_latitude" class="sr-only">Latitude:</label> 
+                            <input type="text" class="form-control" name="latitude" maxlength="31" placeholder="Latitude" required id="id_latitude">
+                        </div>	
+                        <div class="col-sm-6 form-group">
+                            <label for="id_longitude" class="sr-only">Longitude:</label>
+                            <input type="text" class="form-control" name="longitude" maxlength="31" placeholder="Longitude" required id="id_longitude">
+                        </div>		
+                    </div>
+
+                    <label for="id_obs" class="sr-only">Informação Adicional</label>
+                    <textarea class="form-control" name="address_description" rows="3" maxlength="254" placeholder="Informação Adicional" id="id_obs"></textarea>
+
+                    <p class="pt-2">Contato</p>
+                    <div>
+                        <div id="phones" class="row">
+                            <div class="col-sm-6 form-group">
+                                <label for="client_phone" class="sr-only">Telefone/Celular</label>
+                                <input type="text" id="client_phone" class="form-control my-2" placeholder="Telefone/Celular do Cliente" name="phone" required autofocus>
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label for="client_phone_obs" class="sr-only">CPF</label>
+                                <input type="text" id="client_phone_obs" class="form-control my-2" placeholder="Fixo, Celular, Loja...?" value="Celular" name="phone_description" required autofocus>
+                            </div>
+                        </div>
+                        <!--
+                        <button type="button" id="add-phone" class="btn btn-warning">Adicionar Outro</button>
+                        -->
+                    </div>
+
+                    <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">Registrar</button>
+                    
+                </form>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Row -->
+    <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
+    <script>
+        var index = 0;
+        $(document.body).on('click', '.btn-remove-phone' ,function(){
+            $(this).closest('.phone-input').remove();
+        });
+        
+        
+        $('#add-phone').on('click', function(){
+
+            index += 1;
+            
+            $('#phones').append(
+                '<div class="col-sm-6 form-group">'+
+                    '<label for="client_phone" class="sr-only">Telefone/Celular</label>'+
+                    '<input type="text" id="client_phone" class="form-control my-2" placeholder="Telefone/Celular do Cliente" name="phone['+index+']" required autofocus>'+
+                '</div>'+
+                '<div class="col-sm-6 form-group">'+
+                        '<label for="client_phone_obs" class="sr-only">CPF</label>'+
+                        '<input type="text" id="client_phone_obs" class="form-control my-2" placeholder="Fixo, Celular, Loja...?" value="Celular" name="phone_description['+index+']" required autofocus>'+
+                '</div>'
+            );
+            
+                
+            
+                
+                
+        });
+    </script>
+
+{% endblock %}

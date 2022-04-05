@@ -1,0 +1,128 @@
+{% extends "base/base.html" %}
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block title %} 
+        <title>Store - Detalhes do Pedido</title>
+{% endblock %}
+ 
+{% block content %}
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-4 text-gray-800">Pedido de {{client.name}}</h1>
+    </div>
+    
+    <div class="row px-4">
+        <div class="col-lg-6">
+          <!-- Collapsable Card Example -->
+            <div class="card shadow mb-4">
+                <!-- Card Header - Accordion -->
+                <a href="#address-information" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="address-information">
+                    <h6 class="m-0 font-weight-bold text-primary">Informações do Pedido</h6>
+                </a>
+                <!-- Card Content - Collapse -->
+                <div class="collapse show" id="address-information">
+                    <div class="card-body">
+                        <div class="list-group px-1 text-white">
+                            <div class="list-group-item list-group-item-action flex-column align-items-start text-black my-2">
+                                <p>Data do Pedido: {{order.date}}</p>
+                                <p>Data Estimada para Entrega: {{order.delivery_estimate_date}}</p>
+                                <p>Turno Estimado para Entrega: {{order.get_delivery_estimate_shift_display}}</p>
+                                <p>Status: {{order.get_status_display}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <!-- Collapsable Card Example -->
+            <div class="card shadow mb-4">
+                <!-- Card Header - Accordion -->
+                <a href="#personal-information" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="personal-information">
+                    <h6 class="m-0 font-weight-bold text-primary">Produtos</h6>
+                </a>
+                <!-- Card Content - Collapse -->
+                <div class="collapse show" id="personal-information">
+                    <div class="card-body">
+                        <div class="list-group-item list-group-item-action flex-column align-items-start my-2">
+                            <table class="table table-sm">
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Quantidade</th>
+                                    <th>Valor</th>
+                                </tr>
+                
+                                {% for product in products %}
+                                    <tr>
+                                        <td>{{product.product.title}}</td>
+                                        <td>{{product.amount}}</td>
+                                        <td>{{product.value}}</td>
+                                    </tr>
+                                {% endfor %}
+                
+                        
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-6">
+            <!-- Collapsable Card Example -->
+            <div class="card shadow mb-4">
+                <!-- Card Header - Accordion -->
+                <a href="#client_address_form" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="client_address_form">
+                    <h6 class="m-0 font-weight-bold text-primary">Endereço do Cliente</h6>
+                </a>
+                <!-- Card Content - Collapse -->
+                <div class="collapse show" id="client_address_form">
+                    <div class="card-body">
+                        <div class="flex-column align-items-start my-2">
+                            <p>Número: {{address.number}}</p>
+                            <p>Rua: {{address.street}}</p>
+                            <p>Bairro: {{address.district}}</p>
+                            <p>Estado: {{address.state}}</p>
+                            <p>CEP: {{address.postal_code}}</p>
+                            <p>Descrição: {{address.description}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-6">
+            <!-- Collapsable Card Example -->
+            <div class="card shadow mb-4">
+                <!-- Card Header - Accordion -->
+                <a href="#client_form" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="client_form">
+                    <h6 class="m-0 font-weight-bold text-primary">Atualizar Informações do Pedido</h6>
+                </a>
+                <!-- Card Content - Collapse -->
+                <div class="collapse show" id="client_form">
+                    <div class="card-body">
+                        <div class="flex-column align-items-start my-2">
+                            {{ order_form | crispy }}
+                            <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">Atualizar Pedido</button>
+                        </div>
+                        <form action="{% url 'order-delete' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{order.id}}" name="order">
+                            <button class="btn btn-lg btn-danger btn-block mt-3" type="submit">Remover Pedido</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Content Row -->
+
+{% endblock %}

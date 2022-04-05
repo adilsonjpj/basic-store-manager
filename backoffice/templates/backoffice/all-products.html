@@ -1,0 +1,43 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block title %} 
+        <title>Store - Produtos</title>
+{% endblock %}
+ 
+{% block content %}
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-4 text-gray-800">Todos os Produtos</h1>
+    </div>
+
+    <div class="col-md-12">
+        <div class="card card-body">
+            <table class="table table-sm">
+                <tr>
+                    <th>Nome</th>
+                    <th>Quantidade</th>
+                    <th>Valor de Venda</th>
+                    <th>Valor de Compra</th>
+                </tr>
+
+                {% for product in products %}
+                    <tr>
+                        <td><a href="{% url 'product-details' product.id %}">{{product.title}}</a></td>
+                        <td>{{product.stock}}</td>
+                        <td>{{product.sell_value}}</td>
+                        <td>{{product.buy_value}}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td>TOTAL</td>
+                    <td>{{total_amount}}</td>
+                    <td>{{total_sell_value}}</td>
+                    <td>{{total_buy_value}}</td>
+                </tr>
+        
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block title %} 
+        <title>Store - Vendas</title>
+{% endblock %}
+ 
+{% block content %}
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-4 text-gray-800">Todas as Vendas</h1>
+    </div>
+
+    <div class="col-md-12">
+        <div class="card card-body">
+            <table class="table table-sm">
+                <tr>
+                    <th>Cliente</th>
+                    <th>Data</th>
+                    <th>Total</th>
+                    <th>Lucro</th>
+                </tr>
+
+                {% for sale in sales %}
+                    <tr>
+                        <td><a href="{% url 'client-details' sale.client.id %}">{{sale.client.name}}</a></td>
+                        <td>{{sale.date}}</td>
+                        <td>{{sale.total_value}}</td>
+                        <td>{{sale.liquid_value}}</td>
+                    </tr>
+                {% endfor %}
+
+        
+            </table>
+        </div>
+    </div>
+{% endblock %}

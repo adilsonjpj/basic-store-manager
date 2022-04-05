@@ -1,0 +1,48 @@
+{% extends "base/base.html" %}
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block title %} 
+        <title>Store - Novo Gasto</title>
+{% endblock %}
+ 
+{% block content %}
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-4 text-gray-800">Cadastrar novo Gasto</h1>
+    </div>
+    <div class="row px-4">
+        <div class="col-md-12">
+            <div class="card card-body px-4">
+                
+
+
+                <form class="form-register" action="new-spending" method="POST">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            {{ form.tipo|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-4">
+                            {{ form.date|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-4">
+                            {{ form.value|as_crispy_field }}
+                        </div>
+                    </div>
+                    
+                    <label for="description">Descrição do Gasto</label>
+                    <textarea class="form-control" name="description" rows="3" placeholder="Descreva o motivo do gasto" id="description"></textarea>
+                    <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">Cadastrar</button>
+                </form>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Row -->
+
+{% endblock %}
